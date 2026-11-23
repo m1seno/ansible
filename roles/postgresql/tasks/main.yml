@@ -1,0 +1,32 @@
+- apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- apt:
+    pkg:
+    - acl
+    - postgresql  
+    state: latest
+
+- service:
+    name: postgresql
+    state: started
+    enabled: true
+
+- become_user: postgres
+  command: "createuser ansimi"
+  register: r
+  changed_when: r.rc == 0
+  failed_when: r.rc != 0 and 'already exists' not in r.stderr
+
+- become_user: postgres
+  command: "createdb -O ansimi ansimi"
+  register: r
+  changed_when: r.rc == 0
+  failed_when: r.rc != 0 and 'already exists' not in r.stderr
+
+- lineinfile:
+    path: /etc/postgresql/17/main/postgresql.conf
+    line: "#ansible_lineinfile_test"
+    insertafter: EOF
+  notify: restart postgres

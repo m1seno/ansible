@@ -1,0 +1,16 @@
+- group:
+    name: "sudoless"
+    state: present
+- user:
+    name: "ansimi"
+    state: present
+    groups: ["sudoless", "sudo", "adm"]
+- authorized_key:
+    user: "ansimi"
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINs+rhRzCZ34a5lw2Lo6ukbW3rzlZPGVs7HCxyvvXbAc tuxedo
+- copy:
+    dest: "/etc/sudoers.d/sudoless"
+    content: "%sudoless ALL = (ALL) NOPASSWD: ALL\n"
+    owner: "root"
+    group: "root"
+    mode: "0644"

@@ -1,0 +1,8 @@
+- copy:
+    dest: /home/ansimi/ansible-file.txt
+    content: "Tätä tiedostoa käytettiin Palvelinten hallinta -kurssilla Ansiblen käytön harjoitteluun.\n Tiedoston luomiseen käytettiin copy sekä file -moduuleja.\n Optiota käytettiin copysta dest ja content, sekä filestä path, owner, group ja mode."
+- file:
+    path: /home/ansimi/ansible-file.txt
+    owner: ansimi
+    group: ansimi
+    mode: "0640"
