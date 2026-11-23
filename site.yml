@@ -1,10 +1,10 @@
 -   hosts: all
     become: true
     roles:
-       # - upgrade
+         - upgrade
         #- hello
         #- ansimi
         #- packages
         #- file
         #- nginx
-        - postgresql
+        #- postgresql
